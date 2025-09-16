@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 function clean(string $title): string {
-    $slug = strtolower($title);
-    $slug = preg_replace('/[^a-z0-9]+/i', '-', $slug);
-    return trim($slug, '-');
+    $output = strtolower($title);
+    $cleaned = preg_replace('/[^a-z0-9]+/i', '-', $output);
+    return trim($cleaned, '-');
 }
 
 
