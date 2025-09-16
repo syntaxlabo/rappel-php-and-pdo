@@ -107,6 +107,12 @@ $sum = array_reduce(
 
 print_r($sum);
 print_r($normalize);
+
+$json=json_encode($normalize);
+$json2=json_encode($sum);
+echo $json;
+echo $json2;
+
 ///////////////////////
 
 ?>
