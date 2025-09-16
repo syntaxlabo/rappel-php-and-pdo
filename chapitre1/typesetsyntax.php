@@ -53,7 +53,7 @@ function buildArticle(array $row=[]): array{
     $views= isset($row['views'])?(is_int($row['views'])?max(0,$row['views']):(int)0):(int)0;
     $published= isset($row['author'])?(bool)$row['author']:(bool)false;
     $author= isset($row['author'])?(is_string($row['author'])?trim((string)$row['author']):(string)'N/A'):(string)'N/A';
-
+    ////
     return ['title'=>$title,'excert'=>$excert,'views'=>$views,'published'=>$published,'author'=>$author];
 }
 
