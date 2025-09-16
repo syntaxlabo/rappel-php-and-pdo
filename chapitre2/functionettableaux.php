@@ -1,5 +1,10 @@
 <?php
 declare(strict_types=1);
+function clean(string $title): string {
+    $slug = strtolower($title);
+    $slug = preg_replace('/[^a-z0-9]+/i', '-', $slug);
+    return trim($slug, '-');
+}
 
 
 $articles = [
@@ -14,7 +19,7 @@ $filtered=array_filter($articles,fn(array $a) => $a['published'] ?? false);
 $normalize = array_map(
   fn($a) => [
     'id'       => $a['id'],
-    'slug'     => slugify($a['title']),
+    'slug'     => clean($a['title']),
     'views'    => $a['views'],
     'author'   => $a['author'],
     'category' => $a['category'],
