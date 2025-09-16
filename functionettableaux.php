@@ -93,7 +93,19 @@ $normalize = array_map(
   $filtered
 );
 usort($normalize, fn($a, $b) => $b['views'] <=> $a['views']);
+$sum = array_reduce(
+  $filtered,
+  function(array $acc, array $a): array {
+      $acc['count'] = ($acc['count'] ?? 0) + 1;
+      $acc['views_sum'] = ($acc['views_sum'] ?? 0) + $a['views'];
+      $cat = $a['category'];
+      $acc['by_category'][$cat] = ($acc['by_category'][$cat] ?? 0) + 1;
+      return $acc;
+  },
+  ['count'=>0, 'views_sum'=>0, 'by_category'=>[]]
+);
 
+print_r($sum);
 print_r($normalize);
 
 
