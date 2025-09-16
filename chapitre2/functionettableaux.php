@@ -107,5 +107,6 @@ $sum = array_reduce(
 
 print_r($sum);
 print_r($normalize);
+///////////////////////
 
 ?>
