@@ -55,7 +55,7 @@ usort($top, fn($a, $b) => $b['views'] <=> $a['views']);
 // with just three first elements
 $top3 = array_slice($top, 0, 3);
 
-//encriments the number of valid authors
+//encriments the number of articles of each array
 $byAuthor = array_reduce(
   $published,
   function(array $acc, array $a): array {
@@ -68,7 +68,9 @@ $byAuthor = array_reduce(
 
 
 $allTags = array_merge(...array_map(fn($a) => $a['tags'], $published));
-
+/////////////
+//return the number of each tag
+//////////////
 $tagFreq = array_reduce(
   $allTags,
   function(array $acc, string $tag): array {
@@ -77,6 +79,14 @@ $tagFreq = array_reduce(
   },
   []
 );
+
+
+//////////////
+//display
+/////////////
+
+
+
 echo "Top 3 (views):\n";
 foreach ($top3 as $a) {
   echo "- {$a['title']} ({$a['views']} vues) — {$a['slug']}\n";
