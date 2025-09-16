@@ -1,4 +1,9 @@
 <?php 
+echo " ***********************************************";
+echo " Types & syntaxe utiles";
+echo " ***********************************************";
+?>
+<?php 
 
 
 declare(strict_types=1);
@@ -15,5 +20,17 @@ function buildArticle(array $row=[]): array{
 
 $arr= buildArticle();
 print_r($arr);
+
+?>
+
+
+/////////////////////////////
+<?php 
+echo " ***********************************************";
+echo " Fonctions, closures & manipulation de tableaux";
+echo " ***********************************************";
+?>
+
+<?php 
 
 ?>
