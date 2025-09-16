@@ -8,6 +8,8 @@ $articles = [
   ['id'=>3,'title'=>'Composer & Autoload','category'=>'outils','views'=>90,'author'=>'Amina','published'=>false, 'tags'=>['composer','php']],
   ['id'=>4,'title'=>'Validation FormRequest','category'=>'laravel','views'=>210,'author'=>'Sara','published'=>true,  'tags'=>['laravel','validation']],
 ];
+
+
 $filtered=array_filter($articles,fn(array $a) => $a['published'] ?? false);
 $normalize = array_map(
   fn($a) => [
@@ -19,7 +21,11 @@ $normalize = array_map(
   ],
   $filtered
 );
+
+
 usort($normalize, fn($a, $b) => $b['views'] <=> $a['views']);
+
+
 $sum = array_reduce(
   $filtered,
   function(array $acc, array $a): array {
@@ -37,6 +43,7 @@ print_r($normalize);
 
 $json=json_encode($normalize);
 $json2=json_encode($sum);
+
 echo $json;
 echo $json2;
 
