@@ -69,6 +69,28 @@ class FeaturedArticle extends Article {
   }
 }
 
+
+class ArticleRepository {
+    private static array $articles = [];
+
+    public static function save(Article $a): void {
+        foreach (self::$articles as $existing) {
+            if ($existing->slug() === $a->slug()) {
+                throw new DomainException("Slug déjà existant: " . $a->slug());
+            }
+        }
+        self::$articles[] = $a;
+    }
+
+    public static function count(): int {
+        return count(self::$articles);
+    }
+    public static function all(): array
+    {
+        return array_values(self::$articles);
+    }
+}
+
 // Démo
 $a = Article::fromTitle(1, 'Encapsulation & visibilité en PHP');
 $b = FeaturedArticle::fromTitle(2, 'Lire moins, comprendre plus');
@@ -91,4 +113,9 @@ $articles = [
     Article::fromTitle(5, 'Les exceptions en PHP')
 ];
 print_r($articles);
+ArticleRepository::save($a);
+
+
+
+
 ?>
