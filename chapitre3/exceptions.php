@@ -3,6 +3,9 @@
 declare(strict_types=1);
 
 /** Valide un article minimal (titre + slug). */
+class SeedException extends RuntimeException {
+    
+}
 function validateArticle(array $a): void {
   if (!isset($a['title']) || !is_string($a['title']) || $a['title'] === '') {
     throw new DomainException("Article invalide: 'title' requis.");
@@ -16,14 +19,14 @@ function validateArticle(array $a): void {
 function loadJson(string $path): array {
   $raw = @file_get_contents($path);
   if ($raw === false) {
-    throw new RuntimeException("Fichier introuvable ou illisible: $path");
+    throw new SeedException("Fichier introuvable ou illisible: $path");
   }
 
   try {
     /** @var array $data */
     $data = json_decode($raw, true, 512, JSON_THROW_ON_ERROR);
   } catch (JsonException $je) {
-    throw new RuntimeException("JSON invalide: $path", previous: $je);
+    throw new SeedException("JSON invalide: $path", previous: $je);
   }
 
   if (!is_array($data)) {
@@ -36,7 +39,7 @@ function loadJson(string $path): array {
 function main(array $argv): int {
   $path = $argv[1] ?? 'storage/seeds/articles.input.json';
 
-  $articles = loadJson($path);              // peut lever RuntimeException
+  $articles = loadJson($path);              // peut lever SeedException
   foreach ($articles as $i => $a) {
     validateArticle($a);                    // peut lever DomainException
   }
@@ -48,8 +51,9 @@ function main(array $argv): int {
 try {
   exit(main($argv));
 } catch (Throwable $e) {
+    error_log($e->getMessage(), 3, 'storage/log/seeds.log');
   // Filet de sécurité : message clair vers STDERR + code de sortie != 0
-  fwrite(STDERR, "[ERR] " . $e->getMessage() . PHP_EOL);
+  //fwrite(STDERR, "[ERR] " . $e->getMessage() . PHP_EOL);
   // Optionnel : contexte dev
   if ($e->getPrevious()) {
     fwrite(STDERR, "Cause: " . get_class($e->getPrevious()) . " — " . $e->getPrevious()->getMessage() . PHP_EOL);
