@@ -115,6 +115,8 @@ $articles = [
 print_r($articles);
 ArticleRepository::save($a);
 
+echo "Total articles in repository: " . ArticleRepository::count() . PHP_EOL;
+
 
 
 
