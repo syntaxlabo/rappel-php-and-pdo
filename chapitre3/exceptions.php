@@ -58,6 +58,7 @@ try {
   if ($e->getPrevious()) {
     fwrite(STDERR, "Cause: " . get_class($e->getPrevious()) . " — " . $e->getPrevious()->getMessage() . PHP_EOL);
   }
+  
   exit(1);
 }
 

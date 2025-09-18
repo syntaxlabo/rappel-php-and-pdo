@@ -1,5 +1,5 @@
 [
   { "title": "Hello Exceptions", "slug": "hello-exceptions" },
   { "title": "hi", "slug": "invalide" }, 
-  { "title": "Mauvais JSON"} 
+  { "title": "Mauvais JSON","slug":"valid"} 
 ]
