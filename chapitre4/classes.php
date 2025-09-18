@@ -32,7 +32,28 @@ class User{
 
 }
 
-$cls=new User(1,"med zammouri","gmail","ggg",3);
+class UserFactory{
+    public static function fromArray(array $u): User {
+        $id    = max(1, (int)($u['id'] ?? 0));
+        $name  = trim((string)($u['name'] ?? 'Inconnu'));
+        $email = trim((string)($u['email'] ?? ''));
+        if ($email === '') {
+            throw new InvalidArgumentException('email requis');
+        }
+        $bio   = isset($u['bio']) ? (string)$u['bio'] : null;
+        $count = (int)($u['articlesCount'] ?? 0);
+
+        return new User($id, $name, $email, $bio, $count);
+    }
+}
+$array=[
+        "id"=>1,
+        "name"=>"med zammouri",
+        "email"=>"gmail",
+        "bio"=>"ggg",
+        "articlesCount"=>3
+    ];
+$cls=UserFactory::fromArray($array);
 echo $cls->initials();
 print_r($cls->toArray());
 ?>
